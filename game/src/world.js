@@ -11,9 +11,15 @@ function readBest() {
 
 export function createWorld(seed, hooks = {}) {
   const rng = createRng(seed);
+  const starRng = createRng(seed);
+  const backgroundStars = Array.from({ length: 260 }, () => ({
+    x: starRng.range(0, CONFIG.world.W), y: starRng.range(0, CONFIG.world.H),
+    r: starRng.range(0.45, 1.35), alpha: starRng.range(0.22, 0.72),
+  }));
   const audio = hooks.audio || {};
   const world = {
     state: 'title', ship: createShip(), pods: [], shards: [], particles: [], floaters: [],
+    backgroundStars,
     score: 0, best: readBest(), wave: 0, delivered: 0, quota: 0, timeLeft: 0,
     combo: 1, comboT: 0, kills: 0,
     mods: { thrustMul: 1, speedMul: 1, pulseMul: 1, magnetR: 0 },

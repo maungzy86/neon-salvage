@@ -1,13 +1,5 @@
 import { CONFIG } from './config.js';
 
-const stars = Array.from({ length: 140 }, (_, i) => {
-  const n = (i * 16807 + 7919) % 2147483647;
-  const m = (n * 48271 + 17) % 2147483647;
-  const k = (m * 69621 + 53) % 2147483647;
-  return { x: n / 2147483647 * CONFIG.world.W, y: m / 2147483647 * CONFIG.world.H,
-    r: 0.5 + k / 2147483647 * 1.3, phase: k / 2147483647 * Math.PI * 2, depth: 0.2 + n / 2147483647 * 0.8 };
-});
-
 function roundedRect(ctx, x, y, w, h, r) {
   ctx.beginPath(); ctx.roundRect(x, y, w, h, r);
 }
@@ -24,11 +16,13 @@ export function drawWorld(ctx, world, tNow) {
     nebula.addColorStop(0, `rgba(${color},0.11)`); nebula.addColorStop(1, `rgba(${color},0)`);
     ctx.fillStyle = nebula; ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
   }
-  for (const s of stars) {
-    const alpha = 0.28 + (Math.sin(t * (0.8 + s.depth) + s.phase) + 1) * 0.24;
-    const x = (s.x - t * 3 * s.depth + W) % W;
-    ctx.globalAlpha = alpha; ctx.fillStyle = '#c9e9ff';
-    ctx.beginPath(); ctx.arc(x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+  const parallaxX = ((world.ship?.x ?? W / 2) - W / 2) * 0.025;
+  const parallaxY = ((world.ship?.y ?? H / 2) - H / 2) * 0.025;
+  for (const s of world.backgroundStars) {
+    const x = (s.x - parallaxX + W) % W;
+    const y = (s.y - parallaxY + H) % H;
+    ctx.globalAlpha = s.alpha; ctx.fillStyle = '#c9e9ff';
+    ctx.beginPath(); ctx.arc(x, y, s.r, 0, Math.PI * 2); ctx.fill();
   }
   ctx.globalAlpha = 1;
 
