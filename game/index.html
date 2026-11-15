@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050914">
+  <title>Neon Salvage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="wrap" aria-label="Neon Salvage game">
+    <canvas id="game" width="1280" height="720" aria-label="Game arena"></canvas>
+    <section id="hud" aria-live="polite">
+      <div id="hud-score" class="hud-box"><span class="label">SCORE</span><strong id="score-value">000000</strong><small id="hud-best">BEST 000000</small></div>
+      <div id="hud-wave" class="hud-box"><span class="label">WAVE</span><strong id="wave-value">01</strong></div>
+      <div id="hud-quota" class="hud-box">PODS <strong id="quota-value">0/5</strong></div>
+      <div id="hud-timerbar" class="hud-box"><span class="label">TIME</span><div class="bar"><div class="fill"></div></div></div>
+      <div id="hud-hullbar" class="hud-box"><span class="label">HULL</span><div class="bar"><div class="fill"></div></div></div>
+      <div id="hud-cargo" class="hud-box"><span class="label">CARGO</span><div id="cargo-pips"></div></div>
+      <div id="hud-pulse" class="hud-box"><span class="label">PULSE</span><div class="bar"><div class="fill"></div></div></div>
+      <div id="hud-combo" class="hud-box"><strong>COMBO x1</strong><div class="bar"><div class="fill"></div></div></div>
+    </section>
+
+    <section id="screen-title" class="screen show">
+      <div class="panel title-panel">
+        <p class="eyebrow">OUTER RIM · SALVAGE DIVISION</p>
+        <h1>NEON <span>SALVAGE</span></h1>
+        <p class="tagline">Bring the haul home. Make every second count.</p>
+        <ul class="controls">
+          <li><kbd>WASD</kbd> / <kbd>ARROWS</kbd> <span>FLY</span></li>
+          <li><kbd>SPACE</kbd> <span>PULSE BLAST</span></li>
+          <li><kbd>E</kbd> <span>DOCK / UNDOCK</span></li>
+          <li><kbd>P</kbd> <span>PAUSE</span></li>
+        </ul>
+        <button id="btn-start" class="chunky">LAUNCH SKIFF <b>▶</b></button>
+        <p id="title-best">BEST RUN · 000000</p>
+      </div>
+    </section>
+
+    <section id="screen-upgrade" class="screen">
+      <div class="panel wide-panel">
+        <p class="eyebrow">SALVAGE SECURED</p>
+        <h2>WAVE CLEAR</h2>
+        <p class="subheading">Choose an upgrade</p>
+        <div id="upgrade-cards"></div>
+      </div>
+    </section>
+
+    <section id="screen-over" class="screen">
+      <div class="panel">
+        <p class="eyebrow">SIGNAL LOST</p>
+        <h2>SKIFF DESTROYED</h2>
+        <div id="over-stats"></div>
+        <button id="btn-restart" class="chunky">RUN IT BACK <b>↻</b></button>
+      </div>
+    </section>
+
+    <section id="screen-pause" class="screen">
+      <div class="panel"><p class="eyebrow">SYSTEM HOLD</p><h2>PAUSED</h2><p class="subheading">Press P or ESC to resume</p></div>
+    </section>
+    <div id="toast" role="status"></div>
+  </main>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
